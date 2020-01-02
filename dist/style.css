@@ -1,0 +1,219 @@
+:root {
+    --blur-factor: 0.025em;
+}
+
+.dontBlurMe {
+    filter: blur(0);
+}
+
+body {
+    /* default layout */
+    margin: 0% 15% 10% 15%;
+    font-size: 1.1em;
+}
+@media screen and (max-width: 420px) {
+    body {
+        /* for small smart devices */
+        margin: 0% 8% 5% 8%;
+        font-size: 1.0em;
+    }
+}
+
+@keyframes fadein {
+    from { opacity: 0; /* margin-left: 10%; */ }
+    to   { opacity: 1; /* margin-left: 0%; */ }
+}
+
+@keyframes fadeout {
+    from { opacity: 1; /* margin-left: 0%; */ }
+    to   { opacity: 0; /* margin-left: -10%; */ }
+}
+
+@keyframes slideup {
+    from { top: 0; height: 80%; }
+    to   { top: -100%; height: 0%; }
+}
+
+@keyframes slidedown {
+    from { top: -100%; height: 0%; }
+    to   { top: 0; height: 80%; }
+}
+
+@keyframes halffade {
+    from { opacity: 1; }
+    to   { opacity: .5; }
+}
+
+
+@keyframes halfunfade {
+    from { opacity: .5; }
+    to   { opacity: 1; }
+}
+
+
+#Menu-Button {
+    position: absolute;
+    right: 2%;
+    top: 2%;
+    color: var(--main-highlight-color);
+    float: right;
+    font-size: 1em;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+
+body {
+    color: var(--main-text-color);
+    font-family: var(--main-text-font);
+    background-color: var(--main-bg-color);
+    height: 100%;
+    min-height: 100%;
+}
+
+
+p::first-line {
+    text-indent: 1em;
+}
+
+
+#Page-header {
+    padding-top: 5%;
+    text-align: center;
+    font-size: 0.75em;
+    font-style: italic;
+    cursor:pointer;
+    filter: blur(var(--blur-factor));
+}
+
+
+#Page-footer {
+    text-align: center;
+    font-size: 0.75em;
+    font-style: italic;
+    position: absolute;
+    right: 15%;
+    bottom: 15%;
+    left: 15%;
+    border: 0;
+    height: 0;
+    filter: blur(var(--blur-factor));
+}
+
+
+hr {
+    margin-top: 2em;
+    border: 0;
+    height: 0;
+    right: 15%;
+    left: 15%;
+    border-bottom: 1px solid var(--main-highlight-color);
+    filter: blur(calc(var(--blur-factor) * 2));
+}
+
+
+.smallCaps {
+    font-variant: small-caps;
+}
+
+
+.drop {
+    display: block;
+	color: var(--main-highlight-color);
+	font-family: var(--main-accent-font);
+	font-size: 2.7em;
+    float: left;
+    line-height: 1;
+    margin-right: 0.1em;
+    margin-top: -0.025em;
+}
+
+.emphasis {
+    font-family: var(--main-emphasis-font);
+    font-size: 1.1em;
+    margin-left:auto;
+    margin-right:auto;
+    width: 90%;
+}
+
+.actionButton {
+    color: var(--main-highlight-color);
+    font-size: 2em;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+
+#Readout {
+    margin-top: 8%;
+    filter: blur(var(--blur-factor));
+}
+
+
+#Actions {
+    filter: blur(var(--blur-factor));
+}
+
+
+#MenuScreen {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    background-color: #34282C;
+    color: lightsalmon;
+    width: 80%;
+    height: 0;
+    left: 10%;
+    top: -100%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    pointer-events:none;
+    position: absolute;
+    bottom: 90%;
+    overflow: hidden;
+    box-shadow: 10px 5px 5px #888888;
+}
+
+.menuScreenButton {
+    color: lightyellow;
+    font-size: 1em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    text-decoration:underline;
+}
+
+
+#PlayScreen {
+    opacity: 1;
+}
+
+
+#Next-Button {
+    color: var(--main-highlight-color);
+    float: right;
+    font-size: 3em;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+h2 { color: var(--main-highlight-color); color: var(--main-accent-font); font-weight: normal; }
+h3 { font-family: var(--main-text-font); font-weight: normal; }
+a { color: var(--main-highlight-color); text-decoration: none; }
+a:hover { color: var(--main-highlight-color); text-decoration: underline; }

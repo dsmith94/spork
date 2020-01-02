@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'perfect-dos';
+    src: url('./pcsenior.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'commodore';
+    src: url('./Commodore-64-v6.3.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+:root {
+    --main-text-font: 'perfect-dos', monospace, Courier, sans-serif;
+    --main-accent-font: "commodore", monospace, Courier, sans-serif;
+    --main-emphasis-color: "commodore", monospace, "Courier New", "Lucida Console", Courier;
+}
