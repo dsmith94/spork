@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # spork
 
 A character-driven IF engine for tablets and smartphones.
