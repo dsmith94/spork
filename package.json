@@ -6,8 +6,6 @@
   "scripts": {
     "build": "node terp-it.js",
     "test": "cd dist && browser-sync start --server --files \"*.js\"",
-    "publish": "uglifyjs ./dist/index.js --compress --mangle --output ./dist/index.js",
-    "prepublish": "babel src --out-file dist/index.js",
     "pretest": "npm run build"
   },
   "author": "",
@@ -17,6 +15,5 @@
     "browsersync": "0.0.1-security",
     "fs": "0.0.1-security",
     "path": "^0.12.7",
-    "uglify-js": "^3.7.3"
   }
 }
