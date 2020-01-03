@@ -1,3 +1,4 @@
+
 var game;
 var nextButtonVisible = false;
 var skipNextMenuClose = false;
@@ -605,6 +606,7 @@ function startGame() {
     else {
         showRoom();
     }
+   showRoom();
 }
 
 

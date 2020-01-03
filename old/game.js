@@ -13,7 +13,7 @@ class Game extends CoreGameClass {
         ]);
     
         this.map = new Map([
-            [ 'inTheLibrary', new InTheLibrary() ],
+            [ 'inTheLibrary', new StartRoom() ],
         ]);
 
         this.playerNoun = `you`;

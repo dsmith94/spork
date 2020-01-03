@@ -45,7 +45,3 @@ npm run test
 
 Navigate your browser to localhost:3000 to see it in action. Of course, browsersync will normally open the browser for you automatically.
 
-=======
-# spork
-Character-driven IF engine for phones and tablets
->>>>>>> 7a190ccd33dc62e4a2a10b094ec00d7dd990ed99
