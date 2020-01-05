@@ -8,8 +8,15 @@
     <link rel="stylesheet" id="fonts" type="text/css" href="readable-fonts.css">
     <link rel="stylesheet" type="text/css" href="crt.css">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="./game.js"></script>
+    <script type="text/javascript" src="./english.js"></script>
     <script type="text/javascript" src="./lib.js"></script>
     <script type="text/javascript" src="./index.js"></script>
+    <script> 
+    window.addEventListener('load', (event) => {
+        startGame();
+    });
+    </script>
     <title>adv</title>
 </head>
 
@@ -20,6 +27,7 @@
             <div id="Readout"></div>
 
             <div id="Actions"></div>
+            <div id="Next-Button"></div>
             <div id="Page-footer"></div>
         </div>
 

@@ -28,6 +28,8 @@ async function* getFiles(dir) {
     }
 }
 
+
+
 function readAll(dir, destination) {
     async.map(getFiles(dir), fs.readFile, (err, results) => {
         if (err)
