@@ -1,6 +1,6 @@
 
 var gCould = `can`;
-var gPlayer = `you`;
+var gPlayer = `Badger`;
 var gSay = `say`;
 
 
@@ -32,8 +32,12 @@ function buildActionsHTML(catagory, actions, name) {
     const noun = getNoun(catagory, name);
     var r = `<p> [${gPlayer} ${gCould} `;
     var i = 0;
+    var article = "";
     actions = Object.keys(actions);
     const len = actions.length - 1;
+    if (catagory === "things") {
+        article = "the";
+    }
     for (const action of actions) {
         const t = `${openTag} '${catagory}', '${name}', '${action}');">${action}${closeTag}`;
         if (i === 0) {
@@ -43,7 +47,7 @@ function buildActionsHTML(catagory, actions, name) {
             }
         }
         else if (i === len) {
-            r = r + ` or ${t} ${noun}.] `;
+            r = r + ` or ${t} ${article} ${noun}.] `;
         }
         else {
             r = r + `, ${t}`;

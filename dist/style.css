@@ -20,14 +20,14 @@ body {
 }
 
 @keyframes fadein {
-    from { opacity: 0; /* margin-left: 10%; */ }
-    to   { opacity: 1; /* margin-left: 0%; */ }
+    from { opacity:0; }
+    to { opacity:1; }
 }
 
 @keyframes fadeout {
-    from { opacity: 1; /* margin-left: 0%; */ }
-    to   { opacity: 0; /* margin-left: -10%; */ }
-}
+    from {opacity: 1;}
+    to {opacity: 0;} 
+ }
 
 @keyframes slideup {
     from { top: 0; height: 80%; }
@@ -48,22 +48,6 @@ body {
 @keyframes halfunfade {
     from { opacity: .5; }
     to   { opacity: 1; }
-}
-
-
-#Menu-Button {
-    position: absolute;
-    right: 2%;
-    top: 2%;
-    color: var(--main-highlight-color);
-    float: right;
-    font-size: 1em;
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
 }
 
 
@@ -163,41 +147,8 @@ hr {
 }
 
 
-#MenuScreen {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
-    background-color: #34282C;
-    color: lightsalmon;
-    width: 80%;
-    height: 0;
-    left: 10%;
-    top: -100%;
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-top: 2%;
-    padding-bottom: 2%;
-    pointer-events:none;
-    position: absolute;
-    bottom: 90%;
-    overflow: hidden;
-    box-shadow: 10px 5px 5px #888888;
-}
-
-.menuScreenButton {
-    color: lightyellow;
-    font-size: 1em;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-    text-decoration:underline;
-}
-
-
 #PlayScreen {
-    opacity: 1;
+    display: block;
 }
 
 

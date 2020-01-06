@@ -3,8 +3,8 @@
 
 Game.characters.player = {
 
-    name() {
-        return `Jim the fish`;
-    }
+    properNoun() {
+        return `Badger`;
+    },
 
 };

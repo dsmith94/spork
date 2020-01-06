@@ -31,36 +31,5 @@
             <div id="Page-footer"></div>
         </div>
 
-        <div id="MenuScreen">
-            <div style="float: left">
-                Fonts
-                <p><button onclick='setStyleSheet("readable-fonts.css", "fonts");' class="menuScreenButton">Serif</button></p>
-                <p><button onclick='setStyleSheet("sans-fonts.css", "fonts");' class="menuScreenButton">San-serif</button></p>
-                <p><button onclick='setStyleSheet("pixel-fonts.css", "fonts");' class="menuScreenButton">Pixel</button></p>
-                <p><button onclick='setStyleSheet("vintage-fonts.css", "fonts");' class="menuScreenButton">Vintage</button></p>
-                <br>
-                Colors
-                <p><button onclick='setStyleSheet("dark-colors.css", "colors");' class="menuScreenButton">Dark</button></p>
-                <p><button onclick='setStyleSheet("light-colors.css", "colors");' class="menuScreenButton">Light</button></p>
-                <p><button onclick='setStyleSheet("book-colors.css", "colors");' class="menuScreenButton">Book</button></p>
-                <p><button onclick='setStyleSheet("c64-colors.css", "colors");' class="menuScreenButton">Old 64</button></p>
-                <p><button onclick='setStyleSheet("gray-colors.css", "colors");' class="menuScreenButton">Grays</button></p>
-            </div>
-            <div style="float: right; margin-left: 2em; margin-top: 1.5em;">
-                CRT mode
-                <p><button onclick='setCrt(true);' class="menuScreenButton">On</button></p>
-                <p><button onclick='setCrt(false);' class="menuScreenButton">Off</button></p>
-                <br>&nbsp;<br>
-                <br>&nbsp;<br>
-                <p><button onclick='undoTurn();' class="menuScreenButton">Undo</button></p>
-            </div>
-            <div style="position: absolute; bottom: 5%; left:5%;">
-                <button onclick='saveGame();' class="menuScreenButton">Save</button>
-            </div>
-            <div style="position: absolute; bottom: 5%; right:5%;">
-                <button onclick='restoreGame();' class="menuScreenButton">Restore</button>
-            </div>
-        </div>
-
 </body>
 </html>

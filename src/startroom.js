@@ -1,113 +1,42 @@
-
-
-Game.rooms.secondRoom = {
-
-    desc: () => `This is the second room. $serenity is here. The $moon is here.`,
-
-    scenery: ["moon"],
-
-}
-
-
 Game.rooms.start = {
 
-    desc: () => `This is the starting room. Nothing much here. Just a $frog, and a $flower. $serenity is here. The $moon is here.`,
+    desc: () => `A great gleaming slab of grey rock rising from a patch of messy shrubs formed the Looking Spot. It was
+    certaintly the highest point on the island, a raised clearing in a forest tall weathered $birches. Lit by the $moon
+    was a sandy trail which led down to the beach, winding near the trodden mud path to Frog's $Swamp.`,
 
     decorations: {
-        "flower": () => `It smells pretty good.`,
+        "birches": () => `Something about the smell of old trees mingled
+        with the night air gave the Badger a pleasantness that sank deep into her bones.`,
     },
 
-    characters: ["player", "serenity"],
+    exits: {
+        "Swamp": {
+            "room": "swamp",
+        },
+    },
 
-    things: ["frog"],
+    characters: ["player", "owl"],
+
+    things: ["telescope"],
 
     scenery: ["moon"],
 
 }
 
 
-Game.scenery.moon = {
+Game.things.telescope = {
 
-    noun: "moon",
-
-    click: () => `The moon shines bright over the ocean.`,
-
-}
-
-
-Game.characters.serenity = {
-
-    noun: "Serenity",
-
-    properNoun: `The Serenity`,
-
-    click: () => `Clicked serenity`,
-
-    hello() {
-        return `Hello`;
-    },
-
-    currentState: "bored",
-
-    states: {
-
-        "hungry": {
-        
-            "How are you doing?": () => {
-                hideCurrentTopic();
-                return `Good, I guess`;
-            },
-
-            "Bye bye": () => {
-                endConversation();
-                return `See ya later`;
-            }
-
-        },
-
-
-        "bored": {
-        
-            "Feel stupid?": () => {
-                return `Yes, very much.`;
-            },
-
-            "Bye bye": () => {
-                dChr.currentState = "hungry";
-                return `Dinkey on purpose`;
-            }
-
-        }
-
-    }
-    
-}
-
-
-Game.things.frog = {
-
-    ribbets: 0,
-
-    desc: () => `The $frog is here.`,
-
-    noun: `frog`,
-
-    properNoun: `the frog`,
+    click: () => `"My precious telescope!" sobbed the Owl. "O, what shall I do!
+    <p>Badger examined the telescope. The finely polished brass fittings were in top-shape. Owl
+    had poured his heart and soul into this marvel of optical wizardry.
+    <p>But it surely needed a new spying-glass.`,
 
     actions: {
 
-        hug: () => `The frog doesn't want a hug.`,
+        "peer into": () => `Badger looked into the telescope and perceived only blackness.`,
 
-        kiss: () => `Even the frog thinks you're weird.`,
+        "repair": () => `Not without a new spying-glass.`,
 
     },
 
-    random: () => `It ribbits ${dObj.ribbets} times. `,
-
-    click(context) {
-        dObj.ribbets++;
-        return `The frog regards you with great curiosity. ${dObj.random()}`;
-    }
-
 }
-
