@@ -2,38 +2,83 @@
 
 Game.rooms.secondRoom = {
 
-    desc() {
-        return `This is the second room. $serenity is here.`;
-    }
+    desc: () => `This is the second room. $serenity is here. The $moon is here.`,
+
+    scenery: ["moon"],
 
 }
 
 
 Game.rooms.start = {
 
-    desc() {
-        return `This is the starting room. Nothing much here. Just a $frog, and a $flower. $serenity is here.`;
-    },
+    desc: () => `This is the starting room. Nothing much here. Just a $frog, and a $flower. $serenity is here. The $moon is here.`,
 
-    decorations: [
-        ["flower", "It smells pretty good."],
-    ],
+    decorations: {
+        "flower": () => `It smells pretty good.`,
+    },
 
     characters: ["player", "serenity"],
 
     things: ["frog"],
+
+    scenery: ["moon"],
+
+}
+
+
+Game.scenery.moon = {
+
+    noun: "moon",
+
+    click: () => `The moon shines bright over the ocean.`,
 
 }
 
 
 Game.characters.serenity = {
 
-    noun: `Serenity`,
+    noun: "Serenity",
 
     properNoun: `The Serenity`,
 
-    click() {
-        console.log("hello");
+    click: () => `Clicked serenity`,
+
+    hello() {
+        return `Hello`;
+    },
+
+    currentState: "bored",
+
+    states: {
+
+        "hungry": {
+        
+            "How are you doing?": () => {
+                hideCurrentTopic();
+                return `Good, I guess`;
+            },
+
+            "Bye bye": () => {
+                endConversation();
+                return `See ya later`;
+            }
+
+        },
+
+
+        "bored": {
+        
+            "Feel stupid?": () => {
+                return `Yes, very much.`;
+            },
+
+            "Bye bye": () => {
+                dChr.currentState = "hungry";
+                return `Dinkey on purpose`;
+            }
+
+        }
+
     }
     
 }
@@ -43,13 +88,7 @@ Game.things.frog = {
 
     ribbets: 0,
 
-    desc() {
-        return `The $frog is here.`;
-    },
-
-    random() {
-        return `It ribbits ${this.ribbets} times. `;
-    },
+    desc: () => `The $frog is here.`,
 
     noun: `frog`,
 
@@ -57,19 +96,17 @@ Game.things.frog = {
 
     actions: {
 
-        "hug": function() {
-            return `The frog doesn't want a hug.`;
-        },
+        hug: () => `The frog doesn't want a hug.`,
 
-        "kiss": function() {
-            return `Even the frog thinks you're weird.`;
-        },
+        kiss: () => `Even the frog thinks you're weird.`,
 
     },
 
+    random: () => `It ribbits ${dObj.ribbets} times. `,
+
     click(context) {
-        this.ribbets++;
-        return `The frog regards you with great curiosity. ${this.random()}`;
+        dObj.ribbets++;
+        return `The frog regards you with great curiosity. ${dObj.random()}`;
     }
 
 }
