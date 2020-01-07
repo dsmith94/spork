@@ -10,8 +10,6 @@ Game.rooms.swamp = {
         "gossip": () => `Badger had always tried to ignore gossip, particularly from such a flithy source.`,
     },
 
-    things: ["flies"],
-
     exits: {
         "Looking Spot": {
             room: "lookingSpot",
