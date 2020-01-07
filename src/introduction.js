@@ -40,7 +40,7 @@ Game.rooms.introductionPage = {
 
 Game.rooms.crackTelescopeRoom = {
 
-    desc: () => `Mistress Badger took a closer look at the telescope. "Actually... I do see a tiny little--"
+    desc: () => `Mistress Badger took a closer look at the telescope. "Actually... I do see a tiny teensy little--"
     <p><i>Crack!</i> The glass fractured in a spiderweb pattern from the edge, and splintered into
     glitter on the ground.
     <p>Owl's lower beak began to shudder, and his eyes began to water. "My... the comet... no..." His words

@@ -1,7 +1,7 @@
 Game.rooms.lookingSpot = {
 
     desc: () => `A great gleaming slab of grey rock rising from a patch of messy shrubs formed the Looking Spot. It was
-    certaintly the highest point on the island, a raised clearing in a forest tall weathered $birches. Lit by the $moon
+    certaintly the highest point on the island, a raised clearing in a forest of tall weathered $birches. Lit by the $moon
     was a sandy trail which led down to the beach, winding near the trodden mud path to Frog's $Swamp.`,
 
     decorations: {
@@ -32,11 +32,8 @@ Game.things.telescope = {
     <p>But it surely needed a new spying-glass.`,
 
     actions: {
-
         "peer into": () => `Badger looked into the telescope and perceived only blackness.`,
-
         "repair": () => `Not without a new spying-glass.`,
-
     },
 
 }

@@ -108,10 +108,9 @@ hr {
 }
 
 
-.ul {
-    margin: 1.5em;
+li {
+    margin: 1em 0;
 }
-
 
 #Readout {
     margin-top: 8%;

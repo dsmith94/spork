@@ -4,9 +4,9 @@
   "description": "Adv packaging system",
   "main": "index.js",
   "scripts": {
-    "prebuild": "uglifyjs ./lib/* --compress --mangle --output ./dist/lib.js --source-map",
-    "build": "uglifyjs ./src/* --compress --mangle --output ./dist/index.js --source-map",
-    "debug": "node terp-it",
+    "presmoosh": "uglifyjs ./lib/* --compress --mangle --output ./dist/lib.js --source-map",
+    "smoosh": "uglifyjs ./src/* --compress --mangle --output ./dist/index.js --source-map",
+    "build": "node terp-it",
     "test": "cd dist && browser-sync start --server --files \"*.js\"",
     "pretest": "npm run build"
   },
