@@ -14,4 +14,3 @@ const metaInfo = {
     startingPlayer: 'player',
 };
 
-

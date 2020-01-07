@@ -1,4 +1,4 @@
-Game.rooms.start = {
+Game.rooms.lookingSpot = {
 
     desc: () => `A great gleaming slab of grey rock rising from a patch of messy shrubs formed the Looking Spot. It was
     certaintly the highest point on the island, a raised clearing in a forest tall weathered $birches. Lit by the $moon
@@ -11,11 +11,11 @@ Game.rooms.start = {
 
     exits: {
         "Swamp": {
-            "room": "swamp",
+            room: "swamp",
         },
     },
 
-    characters: ["player", "owl"],
+    characters: ["owl"],
 
     things: ["telescope"],
 

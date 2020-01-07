@@ -29,27 +29,6 @@ body {
     to {opacity: 0;} 
  }
 
-@keyframes slideup {
-    from { top: 0; height: 80%; }
-    to   { top: -100%; height: 0%; }
-}
-
-@keyframes slidedown {
-    from { top: -100%; height: 0%; }
-    to   { top: 0; height: 80%; }
-}
-
-@keyframes halffade {
-    from { opacity: 1; }
-    to   { opacity: .5; }
-}
-
-
-@keyframes halfunfade {
-    from { opacity: .5; }
-    to   { opacity: 1; }
-}
-
 
 body {
     color: var(--main-text-color);
@@ -116,13 +95,6 @@ hr {
     margin-top: -0.025em;
 }
 
-.emphasis {
-    font-family: var(--main-emphasis-font);
-    font-size: 1.1em;
-    margin-left:auto;
-    margin-right:auto;
-    width: 90%;
-}
 
 .actionButton {
     color: var(--main-highlight-color);
@@ -133,6 +105,11 @@ hr {
     cursor:pointer;
     overflow: hidden;
     outline:none;
+}
+
+
+.ul {
+    margin: 1.5em;
 }
 
 
