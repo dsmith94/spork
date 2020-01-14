@@ -18,7 +18,32 @@ var dChr;
  * and return to normal game mode.
  */
 function endConversation() {
-    __currentNPCConversing = ``;
+    setNPCConversation('');
+}
+
+
+/*
+ * beginConversation(npcName)
+ *
+ * Begin conversation with given npc.
+ */
+function beginConversation(npcName) {
+    const obj = game["characters"][npcName];
+    if (obj) {
+        const context = {
+            name: npcName,
+            it: obj
+        };
+        if (obj.hello) {
+            dChr = obj;
+            const c = parseTextToDisplayObject(obj.hello(context));
+            if (c) {
+                setNPCConversation(npcName)
+                msg(`<p>${c}`);
+                refresh();
+            }
+        }
+    }
 }
 
 
@@ -32,6 +57,12 @@ function endConversation() {
 function setNPCstate(character, state)
 {
     game["characters"][character].currentState = state;
+}
+
+
+function setState(state)
+{
+    dChr.currentState = state;
 }
 
 
@@ -66,12 +97,12 @@ function showTopic(character, state, topic)
 
 
 /*
- * hideTopic(character, state, topic)
+ * hideNPCTopic(character, state, topic)
  *
  * Hides a topic. It still exists, but will no longer be shown
  * on NPC topic lists.
  */
-function hideTopic(character, state, topic)
+function hideNPCTopic(character, state, topic)
 {
     if (state) {
         game["characters"][character]["states"][state]["__hidden"][topic] = true;
@@ -83,14 +114,14 @@ function hideTopic(character, state, topic)
 
 
 /*
- * hideCurrentTopic()
+ * hideTopic()
  *
  * Hides the topic current active. Can be used to prevent
  * one topic from being selected over and over.
  */
-function hideCurrentTopic()
+function hideTopic()
 {
-    hideTopic(__currentNPCConversing, __currentConversingState, __currentConversingTopic);
+    hideNPCTopic(__currentNPCConversing, __currentConversingState, __currentConversingTopic);
 }
 
 
@@ -220,6 +251,7 @@ var __displayObjects = [];
 var __currentNPCConversing = "";
 var __currentConversingState = "";
 var __currentConversingTopic = "";
+var __transitionText = "";
 
 
 function lookForBreaks(text) {
@@ -295,12 +327,127 @@ function fixQuotes(str)
 }
 
 
+function handleHeadingTags(str) {
+    for (let i = 6; i > 0; i--) {
+        const pounds = '#'.repeat(i);
+        const re = new RegExp(pounds + ' .*', 'g');
+        const matches = str.match(re);
+        if (matches) {
+            for (const s of matches) {
+                const finalString = s.replace(/#/g, "");
+                str = str.replace(s, `<h${i}>${finalString}</h${i}>`);
+            }
+        }
+    }
+    return str;
+}
+
+
+function handleItalicsTags(str) {
+    const patterns = [
+        [/_.+_/, '_'], 
+        [/\*.+\*/, '\\*']
+    ];
+    for (pattern of patterns) {
+        const [re, symbol] = pattern;
+        const matches = str.match(re);
+        if (matches) {
+            for (const s of matches) {
+                if (s !== "___") {
+                    const replacePattern = new RegExp(symbol, 'g');
+                    const finalString = s.replace(replacePattern, "");
+                    str = str.replace(s, `<i>${finalString}</i>`);
+                }
+            }
+        }
+    }
+    return str;
+}
+
+
+function handleBoldTags(str) {
+    const matches = str.match(/\*\*.*\*\*/g);
+    if (matches) {
+        for (const s of matches) {
+            const finalString = s.replace(/\*\*/g, "");
+            str = str.replace(s, `<b>${finalString}</b>`);
+        }
+    }
+    return str;
+}
+
+
+function handleRuleTags(str) {
+    const patterns = [/\n\s*___/g, /\n\s*\*\*\*/g, /\n\s*\_\_\_/g];
+    for (pattern of patterns) {
+        const matches = str.match(pattern);
+        if (matches) {
+            for (const s of matches) {
+                str = str.replace(s, `<hr />`);
+            }
+        }
+    }
+    return str;
+}
+
+
+function handleLongDashTags(str) {
+    const matches = str.match(/--/g);
+    if (matches) {
+        for (const s of matches) {
+            str = str.replace(s, `&mdash;`);
+        }
+    }
+    return str;
+}
+
+
+function handleBlockQuotes(str) {
+    str = str.split(/\n/);
+    let text = ``;
+    let inBlockQuote = false;
+    for (line of str) {
+        if (line.trim().slice(0, 2) === "> ") {
+            if (inBlockQuote === false) {
+                text += "<blockquote>";
+            }
+            inBlockQuote = true;
+            text += line.trim().slice(2, line.length) + '<br />';
+        } else {
+            if (inBlockQuote === true) {
+                text += "</blockquote>";
+                inBlockQuote = false;
+            }
+            text += line + '\n';
+        }
+    }
+    return text;
+}
+
+
+function addParagraphs(str) {
+    return str.replace(/\n\s*\n/g, '<p>');
+}
+
+
 function checkIfDigit(n) {
     var x = Number(n);
     if (x != NaN) {
         return Boolean([true, true, true, true, true, true, true, true, true, true][x]);
     }
     return false;
+}
+
+
+function setNPCConversation(npcName)
+{
+    __currentNPCConversing = npcName;
+}
+
+
+function setRoomTransition(text)
+{
+    __transitionText = parseTextToDisplayObject(text);
 }
 
 
@@ -343,30 +490,35 @@ function checkIfLetter(char) {
 }
 
 
-function checkForParagraphIndents(text) {
-    text = text.replace(/ __/g, "<p>");
-    return text;
-}
-
-
 function refresh() {
     var text = ``;
     const roomName = getRoomOfCharacter(__currentPlayer);
     const currentRoom = game["rooms"][roomName];
     hideNextButton();
-    hideActions();   
-    if (__displayObjects.length === 0) {
-        msg(currentRoom.desc);
-        getSpecialDescriptions(roomName);
-    }
-    else if (__currentNPCConversing === ``) {
-        showNextButton();
+    hideActions();
+    if (__currentNPCConversing === '') {
+        if (__displayObjects.length === 0) {
+            if (__transitionText) {
+                msg(`<p>${__transitionText}`);
+                __transitionText = ``;
+            }
+            const t = parseTextToDisplayObject(currentRoom.text);
+            msg(`<p>${t}`);
+            getSpecialDescriptions(roomName);
+        }
+        else {
+            showNextButton();
+        }
     }
     else {
+        if (__displayObjects.length === 0) {
+            const t = parseTextToDisplayObject(game["characters"][__currentNPCConversing].desc);
+            msg(`<p>${t}`);
+        }
         const topics = getConversationTopics();
         if (topics) {
             const actions = document.getElementById("Actions");
-            actions.innerHTML = fixQuotes(buildTopicsHTML(topics, __currentNPCConversing));
+            actions.innerHTML = buildTopicsHTML(topics, __currentNPCConversing);
         }
     }
     const readout = document.getElementById("Readout");
@@ -374,38 +526,23 @@ function refresh() {
         for (const d of __displayObjects) {
             text += d;
         }
-        text = checkForParagraphIndents(text);
-        text = addHyperLinks(roomName, text);
+        text = handleHeadingTags(text);
+        text = handleBoldTags(text);
+        text = handleItalicsTags(text);
+        text = handleRuleTags(text);
+        text = handleBlockQuotes(text);
         text = handleStringCaps(text);
+        text = addParagraphs(text);
+        text = addHyperLinks(roomName, text);
+        text = handleLongDashTags(text);
         text = fixQuotes(text);
         readout.innerHTML = text;
     }
     __displayObjects = [];
-}
-
-
-/*
-function finishSetText()
-{
-    const e = document.getElementById("PlayScreen");
-    setText();
-    if (e) {
-        e.style.animation = 'fadein 0.25s';
+    if (__currentNPCConversing === '' && dChr !== '') {
+        dChr = null;
     }
 }
-*/
-
-
-/*
-function refresh()
-{
-    const e = document.getElementById("PlayScreen");
-    if (e) {
-        e.style.animation = 'fadeout 0.25s';
-        window.setTimeout(function() { finishSetText(); }, 250);
-    }
- }
- */
 
 
 function showNextButton() {
@@ -433,14 +570,21 @@ function handleStringCaps(text) {
     var i = 0;
     var skip = false;
     var readyToCap = true;
+    var inAmperstand = false;
     while (i < length) {
+        if (text[i] === '&') {
+            inAmperstand = true;
+        }
+        if (text[i] === ';') {
+            inAmperstand = false;
+        }
         if (text[i] === '<') {
             skip = true;
         }
         if (text[i] === '>') {
             skip = false;
         }
-        if (skip === false) {
+        if (skip === false && inAmperstand === false) {
             var c = text[i];
             if (c === `.` || c === `!` || c === `?`) {
                 if (text[i + 1] !== '"') {
@@ -598,10 +742,16 @@ function handleExit(noun, roomName) {
     const e = game["rooms"][roomName]["exits"][noun];
     if (e) {
         if (e.room) {
+            if (e.preMove) {
+                msg(e.preMove);
+            }
+            if (e.postMove) {
+                setRoomTransition(e.postMove);
+            }
             moveCharacterToRoom(__currentPlayer, e.room);
         }
-        if (e.desc) {
-            msg(e.desc);
+        if (e.preventMove) {
+            msg(e.preventMove);
         }
     }
     refresh();
@@ -652,10 +802,11 @@ function handleClick(catagory, container, name) {
             it: obj
         };
         if (catagory === "characters" && obj.hello) {
-            const c = obj.hello(context);
+            dChr = obj;
+            const c = parseTextToDisplayObject(obj.hello(context));
             if (c) {
-                __currentNPCConversing = name;
-                msg(c);
+                setNPCConversation(name);
+                msg(`<p>${c}`);
                 refresh();
                 return;
             }

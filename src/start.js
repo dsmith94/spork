@@ -1,11 +1,15 @@
 Game.rooms.start = {
 
-    desc: () => `<h1>${game.title}</h1>
-    <h2>an Interactive Book by Donald Smith</h2>
-    <p>$Acknowledgements
-    <p>$Introduction
-    <p>$Start
-    <p>$About the Author`,
+    text: () => `# ${game.title}
+    ## an Interactive Book by Dj Smith
+
+    $Acknowledgements
+    
+    $Introduction
+    
+    $Start
+    
+    $About the Author`,
 
     exits: {
         "Acknowledgements": {

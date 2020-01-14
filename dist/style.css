@@ -44,6 +44,15 @@ p::first-line {
 }
 
 
+blockquote {
+    border-radius: 0.5em;
+    padding: 1em;
+    font-size: 1.1em;
+    background-color: #000;
+    width: auto;
+}
+
+
 #Page-header {
     padding-top: 5%;
     text-align: center;
@@ -110,7 +119,9 @@ hr {
 
 li {
     margin: 1em 0;
+    list-style: square;
 }
+
 
 #Readout {
     margin-top: 8%;
@@ -130,8 +141,8 @@ li {
 
 #Next-Button {
     color: var(--main-highlight-color);
-    float: right;
-    font-size: 3em;
+    text-align: center;
+    font-size: 2em;
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;
