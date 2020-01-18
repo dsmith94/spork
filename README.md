@@ -23,7 +23,7 @@ This will create the project structure and necessary library files in a folder c
 npm i
 ```
 
-Npm will install [babel](https://babeljs.io/), [browsersync](https://www.browsersync.io/), and [uglify](https://github.com/mishoo/UglifyJS).
+Npm will install [browsersync](https://www.browsersync.io/), and [uglify-es](https://github.com/mishoo/UglifyJS).
 
 ### 3. Build and test scripts
 
@@ -33,14 +33,14 @@ To build your fiction in progress, run
 npm run build
 ```
 
-If you have Visual Studio Code installed, you can simply press Ctrl-Shift-B to run the build script. All the Javascript files in the src folder will be rolled into dist/index.js.
+If you have Visual Studio Code installed, you can simply press Ctrl-Shift-B to run the build script. All the Javascript files in the src folder will be rolled into debug/index.js and dist/index.js.
 
-The dist folder contains the core web app that will be your finished work. Index.html is the entry point for the browser.
+The dist folder contains the core web app that will be your finished work, with index.html as the entry point for the browser.
 
-To test your work in progress, run
+To debug your work in progress, run
 
 ```console
-npm run test
+npm run debug
 ```
 
 Navigate your browser to localhost:3000 to see it in action. Of course, browsersync will normally open the browser for you automatically.

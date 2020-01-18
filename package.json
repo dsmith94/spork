@@ -4,11 +4,11 @@
   "description": "Adv packaging system",
   "main": "index.js",
   "scripts": {
-    "presmoosh": "uglifyjs ./lib/* --compress --mangle --output ./dist/lib.js --source-map",
-    "smoosh": "uglifyjs ./src/* --compress --mangle --output ./dist/index.js --source-map",
-    "build": "node terp-it",
-    "test": "cd dist && browser-sync start --server --files \"*.js\"",
-    "pretest": "npm run build"
+    "postbuild": "uglifyjs --output ./dist/lib.js --compress --mangle -- ./lib/*",
+    "build": "uglifyjs --output ./dist/index.js --compress --mangle -- ./dist/index.js",
+    "prebuild": "node --no-warnings build-debug",
+    "debug": "browser-sync start --index ./debug/index.html --server --files \"*.js\"",
+    "predebug": "npm run build"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "async": "^3.1.0",
     "browsersync": "0.0.1-security",
     "fs": "0.0.1-security",
+    "glob": "^7.1.6",
     "path": "^0.12.7",
     "uglify-es": "^3.3.9"
   },
