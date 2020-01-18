@@ -26,6 +26,4 @@ Game.rooms.start = {
         },
     },
 
-    characters: ["player"]
-
 }

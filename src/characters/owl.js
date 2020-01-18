@@ -1,6 +1,8 @@
 Game.characters.owl = {
 
-    desc: () => `Poor $owl was wailing plaintively next to his smashed $telescope.`,
+    in: "lookingSpot",
+
+    text: () => `Poor $owl was wailing plaintively next to his smashed $telescope.`,
 
     noun: "Owl",
 

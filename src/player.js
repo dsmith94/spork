@@ -3,6 +3,8 @@
 
 Game.characters.player = {
 
+    in: "start",
+
     properNoun() {
         return `Badger`;
     },

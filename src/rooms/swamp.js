@@ -17,11 +17,11 @@ Game.rooms.swamp = {
         },
     },
 
-    things: ["cottage"],
-
 }
 
 Game.things.cottage = {
+
+    in: "swamp",
 
     click() {
         beginConversation("frog");

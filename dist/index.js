@@ -45,6 +45,8 @@ Game.characters.frog = {
     hasOfferedTea: false,
     badgerHasTea: false,
 
+    in: "swamp",
+
     hello: () => `Badger knocked on the door, and the cottage door creaked open, revealing a large round green face.
     "What are you doing out here?" asked Frog. "The night air is bad, don't you know!"
 
@@ -84,6 +86,11 @@ Game.characters.frog = {
                 The Frog began preparing the kettle. "I'd be glad for a cup myself, so I'll make two." Soon
                 the teapot was singing. Frog poured Badger a steaming $full cup of rich brew, sweetened gently
                 with a touch of honey.`;
+            },
+
+            "I don't want tea!": {
+                shown: () => true,
+                text: () => `I don't want tea!!`,
             },
 
             "No, but thank you": () => {
@@ -282,7 +289,9 @@ Game.characters.otter = {
 
 Game.characters.owl = {
 
-    desc: () => `Poor $owl was wailing plaintively next to his smashed $telescope.`,
+    in: "lookingSpot",
+
+    text: () => `Poor $owl was wailing plaintively next to his smashed $telescope.`,
 
     noun: "Owl",
 
@@ -395,6 +404,8 @@ Game.rooms.noDamageTelescopeRoom = {
 
 Game.characters.player = {
 
+    in: "start",
+
     properNoun() {
         return `Badger`;
     },
@@ -419,16 +430,12 @@ Game.rooms.lookingSpot = {
         },
     },
 
-    characters: ["owl"],
-
-    things: ["telescope"],
-
-    scenery: ["moon"],
-
 }
 
 
 Game.things.telescope = {
+
+    in: "lookingSpot",
 
     click: () => `"My precious telescope!" sobbed the Owl. "O, what shall I do!"
     <p>Badger examined the telescope. The finely polished brass fittings were in top-shape. Owl
@@ -460,11 +467,11 @@ Game.rooms.swamp = {
         },
     },
 
-    things: ["cottage"],
-
 }
 
 Game.things.cottage = {
+
+    in: "swamp",
 
     click() {
         beginConversation("frog");
@@ -506,7 +513,5 @@ Game.rooms.start = {
             room: "aboutPage"
         },
     },
-
-    characters: ["player"]
 
 }

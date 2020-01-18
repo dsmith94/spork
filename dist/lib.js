@@ -155,42 +155,6 @@ function deleteCurrentTopic()
 }
 
 
-/*
- *
- *
- * Delete all references to a character. Note that the
- * character still exists, and can be put back into the game
- * with a call to putCharacterInRoom.
- */
-function deleteCharacter(character)
-{
-    const oldRoom = getRoomOfCharacter(character);
-    if (game["rooms"][oldRoom].characters) {
-        const index = game["rooms"][oldRoom].characters.indexOf(character);
-        game["rooms"][oldRoom].characters.splice(index, 1);
-    }
-}
-
-
-/* 
- * putCharacterInRoom(character, room)
- *
- * Put a character into a room. Note that this could lead to
- * a character named reference duplication. Usually,
- * you want moveCharacterToRoom to prevent that unwanted
- * behavior.
- */
-function putCharacterInRoom(character, room)
-{
-    if (game["rooms"][room]) {
-        if (!game["rooms"][room]["characters"]) {
-            game["rooms"][room]["characters"] = [];
-        }
-        game["rooms"][room]["characters"].push(character);
-    }
-}
-
-
 /* 
  * silentMoveCharacterToRoom(character, room)
  *
@@ -199,8 +163,9 @@ function putCharacterInRoom(character, room)
  */
 function silentMoveCharacterToRoom(character, room)
 {
-    deleteCharacter(character);
-    putCharacterInRoom(character, room);
+    if (game["rooms"][room]) {
+        game["characters"][character].in = room;
+    }
 }
 
 
@@ -226,15 +191,7 @@ function moveCharacterToRoom(character, room)
  * Get current location room of character, as string.
  */
 function getRoomOfCharacter(c) {
-    const rooms = game["rooms"];
-    for (const [name, data] of Object.entries(rooms)) {
-        if (data.characters) {
-            if (data.characters.indexOf(c) > -1) {
-                return name;
-            }
-        }
-    }
-    return '';
+    return game["characters"][c].in;
 }
 
 /*
@@ -613,11 +570,13 @@ function getSpecialDescriptions(roomName)
 {
     const catagories = ["things", "characters", "scenery"];
     for (const catagory of catagories) {
-        if (game["rooms"][roomName][catagory]) {
-            for (const k of game["rooms"][roomName][catagory]) {
-                if (game[catagory][k].desc) {
-                    const t = `<p>${parseTextToDisplayObject(game[catagory][k].desc)}</p>`;
-                    msg(t);
+        if (game[catagory]) {
+            for (const k of Object.keys(game[catagory])) {
+                if (game[catagory][k].in === roomName) {
+                    if (game[catagory][k].text) {
+                        const t = `<p>${parseTextToDisplayObject(game[catagory][k].text)}</p>`;
+                        msg(t);
+                    }
                 }
             }
         }
@@ -645,16 +604,36 @@ function getConversationTopics()
 }
 
 
+function determineTopicShow(response) {
+    if (typeof response === "function") {
+        return true;
+    }
+    if (typeof response === "string") {
+        return true;
+    }
+    if (typeof response === "object") {
+        if (typeof response.shown === "function") {
+            if (response.shown()) {
+                return true;
+            }
+        } else {
+            if (response.shown) {
+                return true;
+            }
+            return false;
+        }
+    }
+    return false;
+}
+
+
 function buildTopicsHTML(topics, name) {
     const openTag = `<a href="javascript:void(0);" onclick="handleTopic(`;
     const closeTag = `</li></a>`;
     var r = `<ul>`;
-    const hidden = topics.__hidden;
-    topics = Object.keys(topics);
-    const len = topics.length - 1;
-    for (const topic of topics) {
-        if (!hidden[topic] && topic.indexOf("__") != 0) {
-            r += `${openTag}'${name}', '${topic}');"><li>${topic}${closeTag}`;
+    for (const [topic, response] of Object.entries(topics)) {
+        if (determineTopicShow(response)) {
+            r += `${openTag}\`${name}\`, \`${topic}\`);"><li>${topic}${closeTag}`;
         }
     }
     return `${r}</ul>`;
@@ -690,20 +669,22 @@ function getNoun(catagory, name) {
 function addHyperLinks(roomName, d)
 {
     const startTag = `<a href="javascript:void(0);" onclick="handle`;
-    const catagories = ["things", "characters", "scenery"];
+    const catagories = ["things", "characters"];
     for (const catagory of catagories) {
-        if (game["rooms"][roomName][catagory]) {
-            for (const k of game["rooms"][roomName][catagory]) {
-                while (d.indexOf(`$${k}`) > -1) {
-                    const len = k.length;
+        if (game[catagory]) {
+            for (const k of Object.keys(game[catagory])) {
+                if (game[catagory][k].in === roomName) {
                     const x = d.indexOf(`$${k}`);
-                    const y = x + len + 1;
-                    const noun = getNoun(catagory, k);
-                    if (__currentNPCConversing !== k) {
-                        d = `${d.slice(0, x)}${startTag}Click('${catagory}','${roomName}','${k}');">${noun}</a>${d.slice(y, d.length)}`;
-                    }
-                    else {
-                        d = `${d.slice(0, x)}${noun}${d.slice(x + len + 1, d.length)}`;
+                    if (x > -1) {
+                        const len = k.length;
+                        const y = x + len + 1;
+                        const noun = getNoun(catagory, k);
+                        if (__currentNPCConversing !== k) {
+                            d = `${d.slice(0, x)}${startTag}Click('${catagory}','${roomName}','${k}');">${noun}</a>${d.slice(y, d.length)}`;
+                        }
+                        else {
+                            d = `${d.slice(0, x)}${noun}${d.slice(x + len + 1, d.length)}`;
+                        }
                     }
                 }
             }
@@ -715,6 +696,16 @@ function addHyperLinks(roomName, d)
                 const x = d.indexOf(`$${noun}`);
                 const len = noun.length;
                 d = `${d.slice(0, x)}${startTag}Decorator('${noun}', '${roomName}');">${noun}</a>${d.slice(x + len + 1, d.length)}`;
+            }
+        }
+    }
+    if (game["scenery"]) {
+        for (const noun of Object.keys(game["scenery"])) {
+            while (d.indexOf(`$${noun}`) > -1) {
+                const x = d.indexOf(`$${noun}`);
+                const len = noun.length;
+                const label = getNoun("scenery", noun);
+                d = `${d.slice(0, x)}${startTag}Click('scenery','${roomName}','${noun}');">${label}</a>${d.slice(x + len + 1, d.length)}`;
             }
         }
     }
@@ -770,11 +761,20 @@ function handleTopic(name, topic) {
             topics = obj.topics;
         }
         __currentConversingTopic = topic;
-        const c = topics[topic]();
-        if (c) {
-            msg(c);
-            refresh();
+        if (typeof topics[topic] === 'object') {
+            const c = topics[topic];
+            console.log(topic);
+            const t = c.text();
+            if (t) {
+                msg(t);
+            }
+        } else {
+            const c = topics[topic]();
+            if (c) {
+                msg(c);
+            }
         }
+        refresh();
     }
 }
 
@@ -868,8 +868,8 @@ function checkLostNames() {
 
 
 function checkGame() {
-    checkNameDuplication();
-    checkLostNames();
+    //checkNameDuplication();
+    //checkLostNames();
 }
 
 
@@ -1011,7 +1011,8 @@ function restartGame() {
     __currentNPCConversing = "";
     __displayObjects = [];
     dObj = null;
+    dChr = null;
     game = Object.create(Game);
     game.title = m.title;
-    buildConversationSchema();
+    //buildConversationSchema();
 }

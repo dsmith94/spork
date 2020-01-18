@@ -16,16 +16,12 @@ Game.rooms.lookingSpot = {
         },
     },
 
-    characters: ["owl"],
-
-    things: ["telescope"],
-
-    scenery: ["moon"],
-
 }
 
 
 Game.things.telescope = {
+
+    in: "lookingSpot",
 
     click: () => `"My precious telescope!" sobbed the Owl. "O, what shall I do!"
     <p>Badger examined the telescope. The finely polished brass fittings were in top-shape. Owl
