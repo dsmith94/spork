@@ -7,7 +7,7 @@
     "postbuild": "uglifyjs --output ./dist/lib.js --compress --mangle -- ./lib/*",
     "build": "uglifyjs --output ./dist/index.js --compress --mangle -- ./dist/index.js",
     "prebuild": "node --no-warnings build-debug",
-    "debug": "browser-sync start --index ./debug/index.html --server --files \"*.js\"",
+    "debug": "browser-sync start --index ./debug/index.html --server --files \"dist/*.js\"",
     "predebug": "npm run build"
   },
   "author": "",

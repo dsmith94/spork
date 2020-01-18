@@ -53,7 +53,6 @@ function createIndexHtml(dir) {
             });
             const indexText = preScript + list + postScript;
             fs.writeFileSync('./debug/index.html', indexText);
-            console.log(list);
         } else {
             console.log(err);
         }
@@ -74,7 +73,6 @@ async function* getFiles(dir) {
       }
     }
 }
-
 
 
 function scanAllInFolder(dir, destination) {

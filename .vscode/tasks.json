@@ -10,10 +10,10 @@
             "problemMatcher": []
         },
         {
-            "type": "npm",
-            "script": "debug",
+            "label": "debug",
+            "type": "shell",
+            "command": "npm run debug",
             "group": "build",
-            "problemMatcher": []
         }
     ]
 }
