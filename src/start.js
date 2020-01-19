@@ -11,7 +11,7 @@ Game.rooms.start = {
     
     $About the Author`,
 
-    exits: {
+    links: {
         "Acknowledgements": {
             room: "acknowledgementsPage"
         },

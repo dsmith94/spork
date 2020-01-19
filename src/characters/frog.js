@@ -20,6 +20,7 @@ Game.characters.frog = {
             dChr.hasOfferedTea = true;
             return `"Would you care for a cup of tea?" offered Frog.`;
         }
+        return ``;
     },
 
     thanksForTea() {
@@ -51,61 +52,57 @@ Game.characters.frog = {
                 text: () => `I don't want tea!!`,
             },
 
-            "No, but thank you": () => {
-                setState("chatty");
-                return `"No, but thank you," said Badger.
+            "No, but thank you": {
+                nextState: "chatty",
+                text: `"No, but thank you," said Badger.
 
                 "You surely won't mind if I have a cup for myself."
 
-                "Please do."`;
+                "Please do."`
             },
 
         },
 
         "chatty": {
 
-            'Thanks for letting me come inside': () => {
-                hideTopic();
-                setState("pills");
-                return `"Many thanks for letting me come inside," said the Badger.
+            'Thanks for letting me come inside': {
+                nextState: "pills",
+                text: `"Many thanks for letting me come inside," said the Badger.
 
                 "There is a bit of an evening chill."
 
                 "Ill luck rides on a night wind, particularly under this moon," said the Frog. "I'd best take my vitamins.
-                Do you need some more?"`;
+                Do you need some more?"`
             },
 
-            'Did you hear about Owl': () => {
-                hideTopic();
-                setState("owl");
-                return `"Did you hear about Owl's telescope?" asked Badger.
+            'Did you hear about Owl': {
+                nextState: "owl",
+                text: `"Did you hear about Owl's telescope?" asked Badger.
 
                 "No," said Frog. "I hear of nothing but the idle talk of flies, and the murmur of swamp water."
 
                 "There was an accident," said Badger. The spying-glass of Owl's telescope is smashed to bits."
 
                 Frog nodded with dignified empathy. "Poor Owl," he said. "You're a fine animal for helping him.
-                Owl may be a bit of an arrogant fellow, but he is not bad at his heart.`;
+                Owl may be a bit of an arrogant fellow, but he is not bad at his heart.`
             },
 
         },
 
         "owl": {
 
-            'What can we do': () => {
-                hideTopic();
-                hideNPCTopic("frog", "Telescope");
-                return `"What can we do to help Owl?" asked Badger.
+            'What can we do': {
+                shown: () => !dTop.hasBeenClicked,
+                text: `"What can we do to help Owl?" asked Badger.
 
                 The Frog sat for a moment with a thoughtful look. "Perhaps I'll mention something to Cat," he said.
                 "You'll find her down by Wide Stump. Cat is quiet, but very old, and knows quite a lot on all manner of
-                outlandish things.`;
+                outlandish things.`
             },
 
-            'Telescope': () => {
-                hideTopic();
-                hideNPCTopic("frog", "What can we do");
-                return `"Do you know anything about telescopes?" asked Badger.
+            'Telescope': {
+                shown: () => !dTop.hasBeenClicked,
+                text: `"Do you know anything about telescopes?" asked Badger.
 
                 "Of course not," said Frog, with a face that was the very picture of umbrage. He puffed his chest as
                 though putting on airs.
@@ -113,24 +110,24 @@ Game.characters.frog = {
                 anything of the like.
 
                 "But," he added, "You may want to talk to Cat. You'll find her down by Wide Stump. Her world is much
-                wider and older than mine."`;
+                wider and older than mine."`
             },
 
-            'Thank you': () => {
-                endConversation();
-                return `"Thank you for your hospitality," said the Badger. "Very kind of you. ${dChr.thanksForTea()} I
+            'Thank you': {
+                nextState: "",
+                text: () => `"Thank you for your hospitality," said the Badger. "Very kind of you. ${dChr.thanksForTea()} I
                 shall do my best to help poor Owl."
 
-                "Come again," said Frog with a cheerful nod.`;
+                "Come again," said Frog with a cheerful nod.`
             },
 
         },
 
         "pills": {
             
-            'Still have some': () => {
-                setState("chatty");
-                return `"I still have some from last time," said Badger. Actually, she had quite a lot, for she
+            'Still have some': {
+                nextState: "chatty",
+                text: `"I still have some from last time," said Badger. Actually, she had quite a lot, for she
                 couldn't stand Frog's vitamins.
 
                 "Increased dosage will do you wonders," chimed Frog.
@@ -138,9 +135,9 @@ Game.characters.frog = {
                 "NO." Badger insisted. "Thank you, but no, I should use what I have."`
             },
 
-            'NO': () => {
-                setState("chatty");
-                return `"NO," said the Badger. "NO more vitamins, if you please."
+            'NO': {
+                nextState: "chatty",
+                text: `"NO," said the Badger. "NO more vitamins, if you please."
 
                 Frog sniffed with indignance. "Humph. Some animals haven't any manners."`
             },

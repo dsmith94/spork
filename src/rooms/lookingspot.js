@@ -9,7 +9,7 @@ Game.rooms.lookingSpot = {
         with the night air gave the Badger a pleasantness that sank deep into her bones.`,
     },
 
-    exits: {
+    links: {
         "Swamp": {
             room: "swamp",
             postMove: "Badger made her way down to the Frog's Swamp."

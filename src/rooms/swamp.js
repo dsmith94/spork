@@ -11,7 +11,7 @@ Game.rooms.swamp = {
         "full cup of rich brew": () => `Badger took a long sip. The scent was floral, and the flavor was just a touch sweet.`,
     },
 
-    exits: {
+    links: {
         "Looking Spot": {
             room: "lookingSpot",
         },
