@@ -14,7 +14,7 @@ const preScript = `
     <link rel="stylesheet" id="colors" type="text/css" href="dist/colors.css">
     <link rel="stylesheet" id="fonts" type="text/css" href="dist/fonts.css">
     <link rel="stylesheet" id="style" type="text/css" href="dist/style.css">
-    <script type="text/javascript" src="dist/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="dist/game.js"></script>
     <script type="text/javascript" src="dist/english.js"></script>
     <script type="text/javascript" src="dist/lib.js"></script>
