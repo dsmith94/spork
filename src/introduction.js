@@ -7,9 +7,9 @@ Game.rooms.introductionPage = {
     It's my turn!"
 
     "Now, boys," said Owl. "Be careful with my telescope. I've waited my whole life for tonight." Owl spoke with a kind of
-    didactic inflection, professorially punctauting each syllable. Anybody with any sense considered
-    Owl to be the very wisest on the matter of heaven-gazing. He was almost the wisest of all the animals, save perhaps for
-    Mistress Badger, who always knew what to do.
+    didactic inflection, professorially punctauting each syllable. Anybody with any sense considered Owl to be the very wisest
+    on the matter of heaven-gazing. He was almost the wisest of all the animals, save perhaps for Mistress Badger, who always
+    knew what to do.
 
     "You had your turn!" said Chipmunk.
 

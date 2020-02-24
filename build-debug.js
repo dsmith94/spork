@@ -14,6 +14,7 @@ const preScript = `
     <link rel="stylesheet" id="colors" type="text/css" href="dist/colors.css">
     <link rel="stylesheet" id="fonts" type="text/css" href="dist/fonts.css">
     <link rel="stylesheet" id="style" type="text/css" href="dist/style.css">
+    <script type="text/javascript" src="dist/jquery.min.js"></script>
     <script type="text/javascript" src="dist/game.js"></script>
     <script type="text/javascript" src="dist/english.js"></script>
     <script type="text/javascript" src="dist/lib.js"></script>

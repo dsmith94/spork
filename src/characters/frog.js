@@ -12,19 +12,19 @@ Game.characters.frog = {
     wood panel walls. At the center was an opulent couch covered in throw pillows, atop which sat Frog,
     perched like a royal vizier.
     Frog regarded Badger with huge, damp eyes. Badger sat opposite in a small but overstuffed armchair.
-    ${dChr.offerTea()}`,
+    ${dNpc.offerTea()}`,
 
     offerTea() {
-        if (!dChr.hasOfferedTea) {
+        if (!dNpc.hasOfferedTea) {
             setState("tea");
-            dChr.hasOfferedTea = true;
+            dNpc.hasOfferedTea = true;
             return `"Would you care for a cup of tea?" offered Frog.`;
         }
         return ``;
     },
 
     thanksForTea() {
-        if (!dChr.badgerHasTea) {
+        if (!dNpc.badgerHasTea) {
             return `And thank you for the tea, it was lovely.`;
         } else {
             return "";
@@ -39,7 +39,7 @@ Game.characters.frog = {
 
             "Yes, tea would be lovely": () => {
                 setState("chatty");
-                dChr.badgerHasTea = true;
+                dNpc.badgerHasTea = true;
                 return `"Yes, tea would go down a treat," said the Badger.
                 
                 The Frog began preparing the kettle. "I'd be glad for a cup myself, so I'll make two." Soon
@@ -115,7 +115,7 @@ Game.characters.frog = {
 
             'Thank you': {
                 nextState: "",
-                text: () => `"Thank you for your hospitality," said the Badger. "Very kind of you. ${dChr.thanksForTea()} I
+                text: () => `"Thank you for your hospitality," said the Badger. "Very kind of you. ${dNpc.thanksForTea()} I
                 shall do my best to help poor Owl."
 
                 "Come again," said Frog with a cheerful nod.`

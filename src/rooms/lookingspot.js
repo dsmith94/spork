@@ -12,7 +12,7 @@ Game.rooms.lookingSpot = {
     links: {
         "Swamp": {
             room: "swamp",
-            postMove: "Badger made her way down to the Frog's Swamp."
+            postMove: `Badger made her way down to the Frog's Swamp. `
         },
     },
 
